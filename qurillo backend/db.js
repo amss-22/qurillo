@@ -13,10 +13,19 @@ const notifySchema = Mongoose.Schema({
   des:String,
 
 });
+const invitedUserSchema=Mongoose.Schema({
+    profileImage:String,
+    name:String,
+    ustd:String,
+
+})
+
+const invitedUsers=Mongoose.model("invitedUser",invitedUserSchema)
 const userModel = Mongoose.model("user", userSchema);
 const notificationModel = Mongoose.model("notification", notifySchema);
 
 module.exports = {
   userModel,
-  notificationModel
+  notificationModel,
+  invitedUsers
 };

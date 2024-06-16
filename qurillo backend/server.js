@@ -3,7 +3,7 @@ const app = express()
 app.use(express.json())
 require('dotenv').config()
 const {connection}=require('./configure/configure')
-const { userModel, notificationModel} = require('./db')
+const { userModel, notificationModel, invitedUsers} = require('./db')
 const cors = require('cors');
 
 
@@ -41,6 +41,27 @@ console.error(err)
 app.get('/getNotification',async (req, res) => {  
   try{
 const response=await notificationModel.find()
+res.send({message:"create successfully",response})
+  }catch(err){
+console.error(err)
+  }
+  
+})
+//user routes
+
+app.post('/invitedUser',async(req , res)=>{
+  try{
+    const invited= new invitedUsers(req.body)
+await invitedUsers.insertMany(invited)
+res.send({message:"create successfully",invited})
+  }catch(err){
+console.error(err)
+  }})
+
+
+app.get('/getInvitedUsers',async (req, res) => {  
+  try{
+const response=await invitedUsers.find()
 res.send({message:"create successfully",response})
   }catch(err){
 console.error(err)
